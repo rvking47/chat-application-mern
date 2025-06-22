@@ -11,7 +11,6 @@ import ChatLoading from '../ChatLoading';
 import UserListItem from '../UserAvatar/UserListItem';
 import { getSender } from '../../config/ChatLogics';
 
-
 const SlideDrawer=()=> {
   const [search, setSearch]= useState("");
   const [searchResult, setSearchResult]= useState([]);
@@ -120,46 +119,51 @@ const accessChat = async (userId)=>{
         Chat Application
       </Text>
       <div>
-        
-  <Menu>
-      <Box position="relative" display="inline-block">
-        <MenuButton
-          as={IconButton}
-          icon={<BellIcon />}
-          variant="ghost"
-          fontSize="2xl"
-        />
-        {uniqueNotifications.length > 0 && (
-          <Badge
-          backgroundColor="red"
-            color="white"
-            borderRadius="full"
-            position="absolute"
-            top="-1"
-            right="0"
-            px={2}
-            fontSize="0.8em"
-          >
-            {uniqueNotifications.length}
-          </Badge>
-        )}
-      </Box>
 
-      <MenuList pl={2}>
-        {uniqueNotifications.length === 0 && "No New Messages"}
-        {uniqueNotifications.map((notif) => (
-          <MenuItem
-            key={notif._id}
-            onClick={() => {
-              setSelectedChat(notif.chat);
-              setnotification(notification.filter((n) => n.chat._id !== notif.chat._id));
-            }}
-          >
-            {notif.chat.isGroupChat
-              ? `New Message in ${notif.chat.chatName}`
-              : `New Message from ${getSender(user, notif.chat.users)}`}
-          </MenuItem>
-        ))}
+  <Menu>
+      <MenuButton
+        as={IconButton}
+        icon={
+          <Box position="relative">
+            <BellIcon />
+            {notification.length > 0 && (
+              <Badge
+                colorScheme="red"
+                borderRadius="full"
+                position="absolute"
+                top="-1"
+                right="-1"
+                fontSize="0.6em"
+                px="1.5"
+              >
+                {notification.length}
+              </Badge>
+            )}
+          </Box>
+        }
+        variant="ghost"
+        fontSize="2xl"
+      />
+      <MenuList>
+        {notification.length === 0 ? (
+          <MenuItem>No new messages</MenuItem>
+        ) : (
+          notification.map((notif, index) => (
+            <MenuItem
+              key={notif._id || index}
+              onClick={() => {
+                setSelectedChat(notif.chat);
+                setnotification(
+                  notification.filter((n) => n.chat._id !== notif.chat._id)
+                );
+              }}
+            >
+              {notif.chat.isGroupChat
+                ? `New Message in ${notif.chat.chatName}`
+                : `New Message from ${getSender(user, notif.chat.users)}`}
+            </MenuItem>
+          ))
+        )}
       </MenuList>
     </Menu>
        <Menu>
