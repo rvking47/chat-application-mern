@@ -3,6 +3,7 @@ import { Button, FormControl, FormLabel, Input, InputGroup, InputRightElement, V
 import { useToast } from "@chakra-ui/react";
 import axios from "axios";
 import {useHistory}  from "react-router-dom";
+import { ChatState } from '../../Context/chatProvider';
 const Login = () => {
       const [show,setshow]=useState(false);
        const [email,setemail]=useState();
@@ -10,7 +11,7 @@ const Login = () => {
        const [loading,setLoading] = useState(false);
        const toast=useToast();
        const history=useHistory();
-
+        const { setUser } = ChatState();
 
        const handleClick=()=>setshow(!show); 
        const submitHandler=async () =>{
@@ -46,7 +47,9 @@ const Login = () => {
         isClosable: true,
         position: "bottom",
           });
-          localStorage.setItem("userInfo",JSON.stringify(data));
+           setUser(data);
+         const ee= localStorage.setItem("userInfo",JSON.stringify(data));
+         console.log(ee);
           setLoading(false);
            history.push("/chats");
         }catch(error)
@@ -66,7 +69,7 @@ const Login = () => {
 
   return (
     <>
-    <VStack spacing="5px" color="black">
+    <VStack spacing="5px" color="white">
     <FormControl id='email' isRequired>
         <FormLabel>Email</FormLabel>
         <Input 
@@ -88,10 +91,11 @@ const Login = () => {
     </FormControl>
     </InputGroup>
 
-    <Button colorScheme='blue' width={"100%"} style={{marginTop:15}} onClick={submitHandler} isLoading={loading}>
+    <Button bg="rgba(0, 0, 255, 0.5)" color="white" borderRadius={30} width={"100%"} style={{marginTop:15}} onClick={submitHandler} isLoading={loading}>
     Login
     </Button>
-    <Button variant={"solid"} colorScheme='red' width={"100%"} onClick={()=>{setemail("guest@example.com"); setpassword("123456")}}>
+    <p>------------- or ----------------</p>
+    <Button variant={"solid"} borderRadius={30} bg="rgba(255, 0, 0, 0.5)" color="white" width={"100%"} onClick={()=>{setemail("guest@example.com"); setpassword("123456")}}>
     Get Guest User Credentials
     </Button>
      </VStack>

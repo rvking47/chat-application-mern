@@ -17,7 +17,8 @@ const Homepage = () => {
 d="flex"
 justifyContent={"center"}
 p={3}
-bg={"white"}
+bg="linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.5))"
+color={"white"}
 w="100%"
 m="40px 0 15px 0"
 borderRadius="lg"
@@ -26,11 +27,11 @@ textAlign={"center"}
 >
   <Text fontSize="3xl" fontFamily="Lato, sans-serif">Live Chat Application</Text>
 </Box>
-<Box bg="white" w="100%" p={4} borderRadius="lg" >
+<Box bg="linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.5))" w="100%" p={4} borderRadius="lg" borderWidth="1px" >
 <Tabs variant='soft-rounded' colorScheme='blue'>
   <TabList md="1em">
-    <Tab w="50%">Login</Tab>
-    <Tab w="50%">SignUp</Tab>
+    <Tab color="white" w="50%">Login</Tab>
+    <Tab color="white" w="50%">SignUp</Tab>
   </TabList>
   <TabPanels>
     <TabPanel>

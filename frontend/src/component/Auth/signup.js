@@ -3,6 +3,7 @@ import  { useState } from 'react'
 import { useToast } from "@chakra-ui/react";
 import axios from "axios";
 import { useHistory }  from "react-router-dom";
+import { ChatState } from '../../Context/chatProvider';
 
 const Signup = () => {
   const [show, setShow] = useState(false);
@@ -14,7 +15,7 @@ const Signup = () => {
   const [picLoading, setPicLoading] = useState(false);
     const toast = useToast();
   const history = useHistory();
-
+ const { setUser } = ChatState();
     const handleClick = () => setShow(!show);
 
   const submitHandler = async () => {
@@ -64,6 +65,7 @@ const Signup = () => {
         isClosable: true,
         position: "bottom",
       });
+       setUser(data);
       localStorage.setItem("userInfo",JSON.stringify(data));
       setPicLoading(false);
       history.push("/chats");
@@ -126,7 +128,7 @@ const Signup = () => {
   };
 
   return (
-    <VStack spacing="5px">
+    <VStack spacing="5px" color="white">
       <FormControl id="first-name" isRequired>
         <FormLabel>Name</FormLabel>
         <Input
@@ -182,7 +184,9 @@ const Signup = () => {
         />
       </FormControl>
       <Button
-        colorScheme="blue"
+        bg="rgba(0, 0, 255, 0.5)"
+        color="white"
+        borderRadius={30}
         width="100%"
         style={{ marginTop: 15 }}
         onClick={submitHandler}

@@ -9,7 +9,8 @@ const Chatpage = () => {
   const [fetchAgain, setFetchAgain]= useState(false)
   const { user } =  ChatState(); 
   
-  return <div style={{width:"100%"}}>
+  return (
+  <div style={{width:"100%"}}>
     { user && <SlideDrawer /> }
     <Box
     display="flex"
@@ -24,6 +25,7 @@ const Chatpage = () => {
       )}
     </Box>
   </div>
+  )
 }
 
 export default Chatpage
