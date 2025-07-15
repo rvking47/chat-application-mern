@@ -26,7 +26,7 @@ app.use("/api/message",messageRoutes);
 
 const __dirname1 = path.resolve();
 
-if (process.env.NODE_ENV === "production11") {
+if (process.env.NODE_ENV === "production12") {
   app.use(express.static(path.join(__dirname1, "/frontend/build")));
 
   app.get("*", (req, res) =>{
