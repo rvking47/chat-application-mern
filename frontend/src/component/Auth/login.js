@@ -48,8 +48,7 @@ const Login = () => {
         position: "bottom",
           });
            setUser(data);
-         const ee= localStorage.setItem("userInfo",JSON.stringify(data));
-         console.log(ee);
+         localStorage.setItem("userInfo",JSON.stringify(data));
           setLoading(false);
            history.push("/chats");
         }catch(error)

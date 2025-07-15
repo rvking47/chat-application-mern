@@ -8,10 +8,13 @@ import messageRoutes from "./routes/messageRoutes.js";
 import { Server } from "socket.io";
 import {notFound,errorHandler} from "./middlewares/errorMiddleware.js";
 import path from 'path';
+import cors from "cors";
 
 dotenv.config();
 connectDB();
 const app=express();
+
+app.use(cors());
 
 app.use(express.json()); //to accept json
 
@@ -23,12 +26,12 @@ app.use("/api/message",messageRoutes);
 
 const __dirname1 = path.resolve();
 
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === "production11") {
   app.use(express.static(path.join(__dirname1, "/frontend/build")));
 
-  app.get("/", (req, res) =>
+  app.get("*", (req, res) =>{
     res.sendFile(path.resolve(__dirname1, "frontend", "build", "index.html"))
-  );
+});
 } else {
   app.get("/", (req, res) => {
     res.send("API is running..");
@@ -42,7 +45,7 @@ if (process.env.NODE_ENV === "production") {
 app.use(notFound);
 app.use(errorHandler);
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 4000;
 
 const server = app.listen(
   PORT,

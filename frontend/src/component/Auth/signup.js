@@ -15,7 +15,6 @@ const Signup = () => {
   const [picLoading, setPicLoading] = useState(false);
     const toast = useToast();
   const history = useHistory();
- const { setUser } = ChatState();
     const handleClick = () => setShow(!show);
 
   const submitHandler = async () => {
@@ -65,7 +64,6 @@ const Signup = () => {
         isClosable: true,
         position: "bottom",
       });
-       setUser(data);
       localStorage.setItem("userInfo",JSON.stringify(data));
       setPicLoading(false);
       history.push("/chats");
