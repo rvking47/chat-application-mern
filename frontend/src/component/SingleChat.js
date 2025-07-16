@@ -12,7 +12,7 @@ import io from "socket.io-client";
 import Lottie from "react-lottie";
 import animationData from "../animations/typing.json";
 
-const ENDPOINT = "http://localhost:4000";
+const ENDPOINT = window.location.origin;
 var socket, selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
@@ -71,14 +71,22 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     }
   };
 
-    useEffect(()=>{
-   socket= io(ENDPOINT);
-   socket.emit("setup", user);
-   socket.on('connected',()=> setsoketConnected(true));
-   socket.on('typing',()=>setIsTyping(true));
-   socket.on('stop typing',()=>setIsTyping(false));
+    useEffect(() => {
+  socket = io(ENDPOINT);
 
-  },[])
+  socket.on("connect", () => {
+    console.log("✅ Socket connected:", socket.id);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("❌ Socket disconnected");
+  });
+
+  socket.emit("setup", user);
+  socket.on("connected", () => setsoketConnected(true));
+  socket.on("typing", () => setIsTyping(true));
+  socket.on("stop typing", () => setIsTyping(false));
+}, []);
   
   useEffect(() => {
     fetchMessages();
