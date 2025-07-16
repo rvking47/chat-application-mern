@@ -57,7 +57,7 @@ const Signup = () => {
         },
         config
       );
-  
+  setUser(data);
       toast({
         title: "Registration Successful",
         status: "success",
