@@ -16,6 +16,7 @@ const Signup = () => {
     const toast = useToast();
   const history = useHistory();
     const handleClick = () => setShow(!show);
+  const { setUser } = ChatState();
 
   const submitHandler = async () => {
     setPicLoading(true);
